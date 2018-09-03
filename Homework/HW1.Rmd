@@ -2,7 +2,7 @@
 title: "Assignment 1"
 author: "CM"
 date: "September 2, 2018"
-output: html_document
+output: pdf_document
 ---
 # 605 Assignment 1 
 ## Problem Set 1
@@ -46,7 +46,7 @@ rref <- function(A) {
         pivot <- r + pivot - 1
         m <- abs(A[pivot, i])
         if (m <= 0) {
-            A[r:rows, i] <- 0  # zeros(rows-r+1, 1)
+            A[r:rows, i] <- 0 
         } 
         else {
             A[c(pivot, r), i:cols] <- A[c(r, pivot), i:cols]
@@ -61,7 +61,7 @@ rref <- function(A) {
                 tmp <- c(1:(r-1), (r+1):rows)
             }
             A[tmp, i:cols] <- A[tmp, i:cols] - 
-                             A[tmp, i, drop=FALSE] %*% A[r, i:cols, drop=FALSE]
+                             A[tmp, i] %*% A[r, i:cols]
             if (r == rows) break
             r <- r+1
         }
