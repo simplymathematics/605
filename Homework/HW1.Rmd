@@ -1,0 +1,82 @@
+---
+title: "Assignment 1"
+author: "CM"
+date: "September 2, 2018"
+output: html_document
+---
+# 605 Assignment 1 
+## Problem Set 1
+### Calculate the dot product u.v where u = [.5;.5] and v = [3;4]
+The dot product is a particular case of the inner product. In R, this can be used with ```%*%```
+
+
+```
+u <- c(.5,.5)
+v <- c(3,4)
+u.v
+dot <- u %*% v
+```
+
+### Find the lengths of u and v
+
+The length of a vector are also known as their magnitude or Euclidean Norm. This is a built-in function in R. We pass it the variable as well as type='2' to specify that it is a 2-norm (or Euclidean norm). 
+```
+norm_u <- norm(u, type='2')
+norm_v <- norm(v, type='2')
+```
+### what is 3u - 2v
+R is a giant calculator. However, multiplication must be specified.  
+```
+answer <- 3*u - 2*v
+```
+### what is the angle between u and v
+```
+cos_theta = dot/(norm_u * norm_v)
+acos(cost_theta)
+```
+## Problem 2
+For this problem, I first implemented a package that conducted the Gauss Jordan process, called rref, same as a TI-83. 
+```
+rref <- function(A) {
+    rows <- nrow(A) 
+    cols <- ncol(A)
+    r <- 1
+    for (i in 1:cols) {
+        pivot <- which.max(abs(A[r:rows, i]))
+        pivot <- r + pivot - 1
+        m <- abs(A[pivot, i])
+        if (m <= 0) {
+            A[r:rows, i] <- 0  # zeros(rows-r+1, 1)
+        } 
+        else {
+            A[c(pivot, r), i:cols] <- A[c(r, pivot), i:cols]
+            A[r, i:cols] <- A[r, i:cols] / A[r, i]
+            if (r == 1) {
+                tmp <- c((r+1):rows)
+            } 
+            else if (r == rows) {
+                tmp <- c(1:(r-1))
+            } 
+            else {
+                tmp <- c(1:(r-1), (r+1):rows)
+            }
+            A[tmp, i:cols] <- A[tmp, i:cols] - 
+                             A[tmp, i, drop=FALSE] %*% A[r, i:cols, drop=FALSE]
+            if (r == rows) break
+            r <- r+1
+        }
+    }
+    return(A)
+}
+```
+I then applied this function to meet the requirements of the assignment
+
+```
+gaussian_elimination <- function(A,b){
+A <- cbind(A,b)
+columns = ncol(A)
+answers = rref(A)
+return (answers[,4])
+}
+```
+To run the script, input a matrix 'A', followed by the answer vector 'b' into the function.
