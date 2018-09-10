@@ -1,6 +1,6 @@
 ---
 title: "Assignment 1"
-author: "CM"
+author: "simplymathematics"
 date: "September 2, 2018"
 output: pdf_document
 ---

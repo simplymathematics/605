@@ -1,0 +1,103 @@
+---
+title: "605 Assignment 2"
+author: "simplymathematics"
+date: "September 9, 2018"
+output: pdf_document
+---
+
+## Assignment 2
+### Problem 1
+If we assume that $A^T A = A A^T$, then we must find only a single case where that is not true to prove that this is not true in general. Let A by an arbitrary 2 X 1 matrix such that 
+$$
+A =
+\begin{bmatrix}
+a_{1,1} \\
+a_{2,1}
+\end{bmatrix}
+$$
+Without loss of generality, without loss of generality, we see that the left hand side is the multiplication of a 1 X 2 matrix with a 2 X 1 matrix, which yields a scalar. Alternatively, the right hand side is a 2 x 1 multiplied by a 1 X 2, which yields a 2 X 2 matrix. These can never be equal, disproving the assumption that $A^T A = A A^T$ in general. 
+
+However, that is true of a special type of matrix called a symmetrical matrix, because for symmetric matricies, 
+$$
+A^T = A
+$$
+We can prove the above property quite trivially for any symmetric matrix
+
+$$
+A^TA = AA^T = A^T A^T = A A 
+$$
+### Demonstration
+
+Furthermore, we an demonstrate that with an R function
+```{r}
+demo <- function(A){
+  transpose <- t(A)
+  lhs <- A%*%t(A)
+  rhs <- t(A)%*%A
+  print(lhs)
+  print(rhs)
+  if (identical(lhs,rhs)){
+    stop("You found a symmetric matrix. Try again!")
+  }
+  else{
+    print("You disproved the above assumption")
+  }
+}
+A <- matrix(c(1,2,3,1,2,3,1,2,3),nrow=3,ncol=3)
+demo(A)
+A2 <- matrix(c(1,1,1,1),nrow=2,ncol=2)
+demo(A2)
+```
+## Problem 2
+
+Write an R function to factorize a square matrix into LU or LDU. 
+Because we are tasked with LU (or LDU factorization), we must pass a positive definite matrix. that will not be checked, although it's squareness will. The function returns a list of variables (L,U) in that order. In order to test the fitness of A, you need matrixcalc installed. You can install it on your machine locally by running:
+```{r}
+install.packages("matrixcalc")
+```
+
+```{r}
+lu_factorization <- function(A){
+  library(matrixcalc)
+  if (nrow(A)!= ncol(A)){
+    stop("Must be a square matrix!")
+  }
+  if (!(is.positive.definite(A,tol=1e-8))){
+    stop("Must be positive definite!")
+  }
+  size <- nrow(A)
+  L <- matrix (0, nrow = size, ncol = size)
+  U <- matrix (0, nrow = size, ncol = size)
+  for (i in 1:size){
+    L[i,i] = 1
+  }
+  for ( i in 1:size ) {
+        up <- i + 1
+        down <- i - 1
+        for ( j in 1:size ) {
+            U[i,j] <- A[i,j]
+            if ( down > 0 ) {
+                for ( k in 1:down ) {
+                    U[i,j] <- U[i,j] - L[i,k] * U[k,j]
+                }
+            }
+        }
+        if ( up <= size ) {
+            for ( j in up:size ) {
+                L[j,i] <- A[j,i]
+                if ( down > 0 ) {
+                    for ( k in 1:down ) {
+                        L[j,i] <- L[j,i] - L[j,k] * U[k,i]
+                    }
+                }
+                L[j,i] <- L[j,i] / U[i,i]
+            }    
+        }
+  }
+  answer <- list(L,U)
+  return(answer)
+}
+A = matrix(c(2,1,1,1,2,1,1,1,2), nrow = 3, ncol = 3)
+lu_factorization(A)
+```
+
