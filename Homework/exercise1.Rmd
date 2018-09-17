@@ -1,0 +1,44 @@
+---
+title: "C10"
+author: "simplymathematics"
+date: "September 12, 2018"
+output: html_document
+---
+
+# C10
+
+If we let 
+$$
+A = 
+\begin {bmatrix}
+1 & 2 \\
+3 & 4
+\end{bmatrix}
+$$
+the characterstic equation can be found such that
+$$
+(\lambda I - A)v =0
+$$
+In our case, that means
+$$
+(\lambda I - A)v =
+\begin {bmatrix}
+\lambda - 1 & 2 \\
+3 & \lambda - 4
+\end{bmatrix}
+$$
+Then, we compute the determinant 
+
+$$
+\det\begin {bmatrix}
+1-\lambda & 2 \\
+3 & 4-\lambda
+\end{bmatrix}
+$$
+Whch is 
+$$
+(1-\lambda)(\lambda-4)-2(3) = 0\\
+\lambda^2-5\lambda-2 = 0
+$$
+
+otherwise known as the characteristic polynomial. The reason it is called the **characteristic** equation is because the eigenvalues of a matrix are the linearly independent vectors that span the space of $R^n$.
