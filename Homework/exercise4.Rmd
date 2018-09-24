@@ -1,0 +1,37 @@
+---
+title: "Linear Transformation"
+author: "simplymathematics"
+date: "September 19, 2018"
+output: html_document
+---
+## Problem 25
+
+We are tasked with verifying whether
+$$ T:\mathbb{C}^3 \rightarrow \mathbb{C}^2 $$
+such that 
+$$ 
+T \cdot \begin{bmatrix}
+x_1 \\
+x_2 \\
+x_3 \\
+\end{bmatrix} = \begin{bmatrix} 
+2x_1 -x_2 +5x_3 \\
+-4x + 2x_2-10x_3
+\end{bmatrix}
+$$
+
+Since we can rearrange the problem as the sum of linearly independent vectors: 
+
+$$ = x_1 \cdot \begin{bmatrix}
+2 \\
+-4
+\end{bmatrix} + x_2 \cdot \begin{bmatrix}
+-1 \\
+2
+\end{bmatrix} + x_3 \cdot \begin{bmatrix}
+5 \\
+-10
+\end{bmatrix} 
+$$
+
+We know that this function is a linear transformation by Theorem MBLT. 

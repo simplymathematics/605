@@ -1,0 +1,55 @@
+---
+title: "605 HW4"
+output: html_notebook
+---
+
+Here, we can input the matrix $A$ and use it to create to special matrices X and Y where $X = AA^T$ and $Y=A^TA$. 
+```{r}
+
+A <- matrix(c(1,-1,2,0,3,4), nrow=2, ncol=3) #Matrix A
+A #manual check via console
+X = A %*% t(A) # A*A^T
+Y = t(A) %*% A #A A^T*A
+```
+Then, we can computer the eigenvectors of x and y as well as the svd of 
+```{r}
+eig_x = eigen(X) 
+eig_x$vectors
+svd(A)$u #left handed vector
+
+eig_y = eigen(Y)
+eig_y$vectors[0:1]
+svd(A)$v #right handed one
+```
+We can also see that the eigenvalues of the svd (X), the significant ones for Y, and the singular square values of A are all the same.
+```{r}
+svd(X)$d # eigenvalue of svd(X)
+svd(Y)$d[1:2] # eigenvalue of svd(Y) minus the trivial eigenvalue
+squares <- c(svd(A)$d)# single values of A
+squares <- (squares^2) #squaring the squares vector
+squares
+```
+
+# Problem 2
+```{r}
+eye <- diag(rep(1,3))
+myinverse <- function(A){
+  if (dim(A)[1]==dim(A)[2] & det(A)!=0 ){
+    C <- A
+    for(i in 1:dim(A)[1]){
+      for(j in 1:dim(A)[1]){
+        C[i,j] <- (det(A[-i,-j])*(-1)^(i+j))
+      }
+    }
+    B  <- t(C)/det(A) 
+    return(B)
+  }
+    else{
+    return(-1)
+    }
+}
+if (all(myinverse(eye)== eye)){ #identity matrix should equal it's own inverse. Otherwise, my function is broken.
+  print('function passed!') 
+}
+
+```
