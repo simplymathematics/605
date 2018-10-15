@@ -1,0 +1,82 @@
+---
+title: "605 Wk 7"
+author: "simplymathematics"
+date: "October 14, 2018"
+output: html_document
+---
+
+# Problem 1
+
+$X_1$, $X_2$ are mutually indeendent, random variables. They are uniformly distributed from 1 to $k$. Let $Y$ denote the minimum of the $X$. Find the distribution of $Y$. 
+
+Since $Y$ is the minimum value of $X$ over all the $X_s$, we have enumberate the ways in which each $X$ can be assinged different values between 1 and $k$.
+
+First, suppose that each $X$ has $k$ possibilities. Then, the total possible number of assignments for all random variables is $k^n$. This will form the denominator later.
+
+Next, the number of ways of getting Y = 1 is $k^n-(k-1)^n$, since the first term represents the number of options and the second term represents the options were none of the $X$ are equal to 1. 
+
+By proceeding in this manner for higher values of Y, we see that for $ 1\leq j \leq k$, and the $$ pdf(Y = j) = \frac{(k-j+1)^n - (k-j)^n}{k^n} $$
+
+# Problem 2
+
+An organization has a machine that is expected to work for 10 years (i.e. its failure rate is .1 failures/year). For each of the below distributions I have shown the probability statement in latex and computed the result in R to verify.
+
+## Geometric
+The geometric mass function can be given as
+$$
+P(X=k) = 
+(1-p)^{k}p = 
+\frac{.9^8}{10} = 
+.043
+$$
+```{r}
+dgeom(x = 8, prob = .1)
+
+```
+The geometric distribution has a mean given by $\frac{1}{p} = \frac{1}{.1} = 10$
+with a variance of
+$$
+\frac{1-p}{p^2} = \frac{.9}{.01} = 90
+$$
+
+## Exponential
+The exponential mass function can be given as
+$$
+P(X=x)
+\lambda e^{-\lambda x} = 
+.1e^.1*8 = 
+.1e^.8 = 
+.045
+$$
+```{r}
+dexp(x = 8, rate = .1)
+```
+The exponential distribution has mean given by $\frac{1}{\lambda}$, or 10, with a variance of 
+$(\frac{1}{10})^{-2} = 100 $. 
+## Binomial
+The binomial mass function can be given as
+$$
+P(X = k) = 
+{{n}\choose{k}}p^k(1-p)^{n-k} = 
+{{8}\choose{0}}.1^0(.9)^8 = 
+.43
+$$
+```{r}
+dbinom(0,8,.1)
+```
+
+The mean can be modeled by $np$, or .8. The variance can be modelled as $np(1-p)$, or $.8*.9 = .72$
+
+## Poisson
+The poisson mass function can be given as
+$$
+P(X = k) = 
+\frac{\lambda^k e^{-\lambda}}{k!} = 
+\frac{10^1 e^-10}{1!} = 
+.112
+$$
+```{r}
+dpois(x = 8, lambda = 10)
+```
+
+It's mean and variance are equal to its $\lambda$, 10. 

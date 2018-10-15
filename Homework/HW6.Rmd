@@ -1,0 +1,107 @@
+---
+title: "605 wk 6"
+author: "simplymathematics"
+date: "October 6, 2018"
+output: html_document
+---
+
+## 1
+A bag contains several different color marbles as seen below.
+```{r}
+total = 54+9+75
+red = 54/total
+white = 9/total
+blue = 75/total
+```
+We can then see that the probability of either of these occuring is
+```{r}
+round(red + blue,4)
+```
+
+## 2
+A machine contains several different color balls as seen below. I found the probability using the method above.
+```{r}
+total = 19+20+24+17
+green = 19/total
+red = 20/total
+blue = 24/total
+yellow = 17/total
+
+round(red,4)
+```
+## 3
+```{r}
+apartment <- c(81,228)
+dorm <- c(116,79)
+parents <- c(215,252)
+greek <- c(130, 97)
+other <- c(129, 72)
+data <- data.frame(t(cbind(apartment, dorm, parents, greek, other)))
+colnames(data) <- c( 'males', 'females')
+round((sum(data$females)+sum(data$males)-215)/sum(data), 4)
+```
+## 4
+Dependent 
+
+## 5
+```{r}
+choose(8,3)*choose(7,3)*choose(8,1)
+```
+## 6
+Independent.
+## 7
+```{r}
+factorial(14)/factorial(14-8)
+```
+## 8
+
+```{r}
+total = 9+4+9
+red = 9
+orange = 4
+green =  9
+
+this = orange/total * green/(total-1) * (green -1)/(total -2) * (green-2)/(total-3)
+round(this, 4)
+```
+
+
+## 9
+$$
+\frac{11!}{7!} = 11*10*9*8 = 7920
+$$
+```{r}
+choose(11,7)
+```
+## 10
+33% of subscribers to a fitness magazine are 34 or younger
+
+## 11
+Suppose we flip 4 coins, and win if we get exactly 3 heads. The probability of that can be expressed as 
+$$ \frac{\text{Number of winning combinations}}{\text{total possibilites}} = \frac{{4}\choose{3}}{2^4} = \frac{4}{16} = \frac{1}{4} $$ 
+The expected wage from 559 trials would be $$(97/4-30*3/4)*559 = 978.25$$
+
+## 12
+Suppose we flip 9 coins, and win if we get less than 5 tails. The probability of that can be expressed as 
+$$ \frac{\text{Number of winning combinations}}{\text{total possibilites}} = \frac{P(\text{tails = 3})+P(\text{tails = 2})+P(\text{tails = 1})}{2^9} = \frac{{{9}\choose{1}}+{{9}\choose{2}}+{{9}\choose{3}}}{512} = \frac{129}{512} = .25
+$$
+The expected wage from 994 trials would be $$(23/4-26*3/4)*994 = -13667.50$$
+
+## 13
+### a
+In the below problem, pass is meant to denote someone whoe does not trigger the polygraph alarm. A fail means the opposite.  
+P(liar|pass) = .59  
+P(truther | pass) = .90
+P(liar) = .2
+
+$$
+P(A|B) = \frac{P(A \cap B)}{P(A)} \leadsto P(A \cap B) = P(A) * P(B|A) = .2*.59 = .12
+$$
+### b 
+1- P(B|A) = .88
+
+### c
+$$ P(A) \cup P(truth | lie-detected)  = P(A) + P(truth|detected) $$
+
+
+$$ P(truth|detected) = \frac{P(A\cap B)}{P(B)} = \frac{.12}{}  $$

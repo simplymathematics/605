@@ -1,0 +1,56 @@
+---
+title: "605 Week 6"
+author: "simplymathematics"
+date: "October 3, 2018"
+output: html_document
+---
+
+First, we set all of known quanities as given by the problem.
+
+```{r}
+sample.size = 1000
+republican= .48
+democrat = .52
+
+```
+
+Then, for ease of accounting, we treat Republicans as 0s and Democrats as 1. Then, we sample a population with the requisite weights, sum up that vector, and repeat 100 times. 
+
+```{r}
+# 0 is republican, 1 is democrat
+rounds <- c()
+for (i in 1:100){
+   rounds[i]<-sum(sample(c(0, 1), size = sample.size, replace = TRUE, prob = c(republican, democrat)))/sample.size
+}
+
+length(rounds[rounds<.50])/1000
+
+
+
+```
+In the first case, our simulation incorrectly predicted the winner 1% of the time. 
+```{r}
+republican.2 = 49
+democrat.2 = 51
+
+rounds <- c()
+for (i in 1:100){
+   rounds[i]<-sum(sample(c(0, 1), size = sample.size, replace = TRUE, prob = c(republican.2, democrat.2)))/sample.size
+}
+
+length(rounds[rounds<.50])/100
+
+```
+In the second case, our simulation incorrectly predicted the winner 22% of the time.
+```{r}
+sample.size.2 = 3000
+rounds <- c()
+for (i in 1:100){
+   rounds[i]<-sum(sample(c(0, 1), size = sample.size.2, replace = TRUE, prob = c(republican.2, democrat.2)))/sample.size.2
+}
+
+length(rounds[rounds<.50])/100
+sort(rounds)
+
+```
+Even with a larger sample size, the smaller gap between the parties resulted in our simulation incorrectly predicted the winner 8% of the time.
